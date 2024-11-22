@@ -1,4 +1,3 @@
-import React from "react";
 
 const Logo = ({ image, name, isHovered }) => {
   return (

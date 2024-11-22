@@ -12,6 +12,7 @@
   font-family: "Poppins", serif;
 }
 
+canvas { width: 300px; height: 300px; }
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
