@@ -19,7 +19,7 @@ const Chat = () => {
 
                         Hobbies: I love to read books, I love to walk, I play guitar a little bit and I play drums at church. I am a Christian. 
 
-                        Girlfriend: I have one and I love her so much she is Jennefer, She;s Beuatiful with a very sift heart.
+                        Girlfriend: I have one and I love her so much she is Jennefer Morabor, She;s Beuatiful with a very sift heart.
 
                         Mother: My mother Is Victoria Salceda.
 
