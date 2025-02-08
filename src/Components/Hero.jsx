@@ -1,7 +1,7 @@
 import Chat from "./Chat";
 const Hero = () => {
     return (
-        <div className="min-h-screen max-w-screen-2xl mx-auto flex items-center">
+        <div className="min-h-screen max-w-screen-2xl mx-auto flex items-center py-16">
             <div className="w-full h-full flex flex-col md:flex-row gap-6">
                 <div className="w-full md:w-1/2 h-full flex flex-col gap-4 z-20">
                     <p className="font-semibold text-2xl">Welcome!</p>
