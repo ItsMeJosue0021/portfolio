@@ -39,18 +39,13 @@ const Chat = () => {
     
         const newMessages = [...messages, { text: input, sender: "user" }];
         setMessages(newMessages);
-    
         const fullPrompt = `${knowledgebase}\n\nUser: ${input}\nBot:`;
     
         try {
             const response = await axios.post(url, {
                 contents: [{ parts: [{ text: fullPrompt }] }],
             });
-    
-            const geminiResponse = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || "I don't know the answer.";
-    
-            console.log(response.data);
-    
+            const geminiResponse = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || "I don't know the answer.";    
             setMessages([...newMessages, { text: geminiResponse, sender: "bot" }]);
         } catch (error) {
             console.error("Error:", error);
