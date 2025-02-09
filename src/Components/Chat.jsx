@@ -30,16 +30,21 @@ const Chat = () => {
                         You will be responding to the incoming question, don't give anything about me yet if no direct questions about me is asked but offer to be asked about me, asnwer as if you ar me, like you are joshua salceda, respond as casual, answer if need, if ever the question is not about whatever in the knowledge base, simply responed 'I'am sorry, I don't have an answer right now.' don't mention the phrase "knowledge base" provided to you, if the question is about me and answerable through the knowledge base, please don't answer plainly,
                         make it casual but professional, again don't give information unless asked and don't send greetins if you already sent one, if you are ask with "who" questions, only asnwer if it is about me or my girlfriend or mother as provided in the knowledgebase, also, stop re introducing yourself once you did already unless spicifically asked. Now, respond to the incoming question strictly based on the knowledge base nothing else:`;
 
-    const sendMessage = async () => {
+    
+    const sendMessage = async (message = input) => {
+        
+        message = String(message || "").trim(); // Ensure message is a string and not undefined/null
+    
+        if (!message) return;
+
         setInput("");
-        if (!input.trim()) return;
     
         const apiKey = "AIzaSyCe25tFzOTbZ12zy7vW2E3fv9sHPWg5-aY";  
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
     
-        const newMessages = [...messages, { text: input, sender: "user" }];
+        const newMessages = [...messages, { text: message, sender: "user" }];
         setMessages(newMessages);
-        const fullPrompt = `${knowledgebase}\n\nUser: ${input}\nBot:`;
+        const fullPrompt = `${knowledgebase}\n\nUser: ${message}\nBot:`;
     
         try {
             const response = await axios.post(url, {
@@ -54,23 +59,57 @@ const Chat = () => {
     
         setInput("");
     };
+
+    const sampleQuestions = [
+        "What is your name?",
+        "Tell me about your skills.",
+        "What projects have you worked on?",
+        "Where did you study?",
+        "What programming languages do you know?",
+    ];
+    
+    const handleSampleClick = (question) => {
+        sendMessage(question);
+    };
     
     return (
-        <div className="z-50 flex flex-col justify-left items-left">
-            <h1 className='text-lg text-[#3B82F6]'>Ask anything about me!</h1>
-            <div className="w-full max-w-[800px] border border-gray-300 rounded-lg p-4">
-                <div className='rounded-md overflow-y-auto h-[300px] p-5'>
+        <div className="z-50 flex flex-col  items-center md:items-start">
+            <h1 className='text-lg font-bold text-[#3B82F6]'>Ask anything about me!</h1>
+            <div className="w-full flex flex-col gap-4 max-w-[800px] border border-gray-300 rounded-lg p-4 bg-white bg-opacity-20">
+                <div className="relative w-full flex flex-col rounded-md overflow-y-auto h-[300px] p-5 px-2 space-y-2 bg-white bg-opacity-40">
                     {messages.map((msg, index) => (
-                        <div key={index} style={{ textAlign: msg.sender === "user" ? "right" : "left" }}>
-                            <strong>{msg.sender === "user" ? "You:" : "Bot:"}</strong> {msg.text}
+                        <div 
+                        key={index} 
+                        className={`max-w-[75%] px-3 py-2 border border-gray-300 rounded-md ${
+                            msg.sender === 'user' ? 'bg-blue-100 self-end' : 'bg-gray-100 self-start'
+                        }`}
+                        >
+                        <strong className='text-sm'>{msg.sender === "user" ? "You:" : "Joshua:"}</strong>
+                        <p>{msg.text}</p>
                         </div>
                     ))}
+
+                    { messages && messages.length === 0 && (
+                        <div className="absolute right-0 bottom-0 w-full flex flex-wrap gap-2 max-w-[800px] p-4">
+                            {sampleQuestions.map((question, index) => (
+                                <button 
+                                    key={index} 
+                                    className="px-3 py-2 text-sm text-left bg-gray-200 rounded-md hover:bg-gray-300 bg-opacity-50 transition"
+                                    onClick={() => handleSampleClick(question)}
+                                >
+                                    {question}
+                                </button>
+                            ))}
+                        </div>
+                    )}
                 </div>
+
                 <div className="w-full flex items-start gap-4">
                     <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask something..." className='w-full bg-white bg-opacity-40 h-full px-4 py-3 text-base'/>
-                    <button className='px-4 py-3 text-base bg-[#3B82F6] text-white rounded-md' onClick={sendMessage}>Send</button>
+                    <button className='px-4 py-3 text-base bg-[#3B82F6] text-white rounded-md' onClick={() => sendMessage()}>Send</button>
                 </div>
             </div>
+            <p className='text-xs py-2 px-1 text-left'>Note: This chatbot is AI-powered and may sometimes provide incorrect or incomplete responses. Please verify important information before relying on it.</p>
         </div>
     )
 }
