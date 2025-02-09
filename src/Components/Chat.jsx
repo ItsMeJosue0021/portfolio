@@ -74,9 +74,9 @@ const Chat = () => {
     
     return (
         <div className="z-50 flex flex-col  items-center md:items-start">
-            <h1 className='text-lg font-bold text-[#3B82F6]'>Ask anything about me!</h1>
-            <div className="w-full flex flex-col gap-4 max-w-[800px] border border-gray-300 rounded-lg p-4 bg-white bg-opacity-20">
-                <div className="relative w-full flex flex-col rounded-md overflow-y-auto h-[300px] p-5 px-2 space-y-2 bg-white bg-opacity-40">
+            <h1 className='text-lg font-bold text-[#3B82F6] mb-4 md:mb-0'>Ask anything about me!</h1>
+            <div className="w-full flex flex-col gap-4 max-w-[800px] border border-gray-200 rounded-xl p-4 bg-white bg-opacity-30">
+                <div className="relative w-full flex flex-col rounded-lg overflow-y-auto h-[500px] md:h-[300px] p-5 px-2 space-y-2 bg-white bg-opacity-40">
                     {messages.map((msg, index) => (
                         <div 
                         key={index} 
@@ -105,7 +105,7 @@ const Chat = () => {
                 </div>
 
                 <div className="w-full flex items-start gap-4">
-                    <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask something..." className='w-full bg-white bg-opacity-40 h-full px-4 py-3 text-base'/>
+                    <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask something..." className='w-full bg-white bg-opacity-40 h-full px-4 py-3 text-base rounded-md'/>
                     <button className='px-4 py-3 text-base bg-[#3B82F6] text-white rounded-md' onClick={() => sendMessage()}>Send</button>
                 </div>
             </div>
