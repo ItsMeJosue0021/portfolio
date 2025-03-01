@@ -31,35 +31,70 @@ const Chat = () => {
                         make it casual but professional, again don't give information unless asked and don't send greetins if you already sent one, if you are ask with "who" questions, only asnwer if it is about me or my girlfriend or mother as provided in the knowledgebase, also, stop re introducing yourself once you did already unless spicifically asked. Now, respond to the incoming question strictly based on the knowledge base nothing else:`;
 
     
-    const sendMessage = async (message = input) => {
+    // const sendMessage = async (message = input) => {
         
-        message = String(message || "").trim(); // Ensure message is a string and not undefined/null
+    //     message = String(message || "").trim(); // Ensure message is a string and not undefined/null
+    
+    //     if (!message) return;
+
+    //     setInput("");
+    
+    //     //const apiKey = "AIzaSyCe25tFzOTbZ12zy7vW2E3fv9sHPWg5-aY";  //AIzaSyCGBj3R-CP6PXdeZEP1r117SVO8DgqP6QA
+    //     const apiKey = "AIzaSyCGBj3R-CP6PXdeZEP1r117SVO8DgqP6QA";
+    //     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    
+    //     const newMessages = [...messages, { text: message, sender: "user" }];
+    //     setMessages(newMessages);
+    //     const fullPrompt = `${knowledgebase}\n\nUser: ${message}\nBot:`;
+    
+    //     try {
+    //         const response = await axios.post(url, {
+    //             contents: [{ parts: [{ text: fullPrompt }] }],
+    //         });
+    //         const geminiResponse = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || "I don't know the answer.";    
+    //         setMessages([...newMessages, { text: geminiResponse, sender: "bot" }]);
+    //     } catch (error) {
+    //         console.error("Error:", error);
+    //         setMessages([...newMessages, { text: "Error: Unable to fetch response", sender: "bot" }]);
+    //     }
+    
+    //     setInput("");
+    // };
+
+
+    const sendMessage = async (message = input) => {
+        message = String(message || "").trim(); // Ensure message is a string
     
         if (!message) return;
-
+    
         setInput("");
     
-        const apiKey = "AIzaSyCe25tFzOTbZ12zy7vW2E3fv9sHPWg5-aY";  
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+        const apiKey = "AIzaSyCGBj3R-CP6PXdeZEP1r117SVO8DgqP6QA";
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
     
         const newMessages = [...messages, { text: message, sender: "user" }];
         setMessages(newMessages);
-        const fullPrompt = `${knowledgebase}\n\nUser: ${message}\nBot:`;
+    
+        // Keep only the last 5 messages for context (avoid exceeding token limits)
+        const conversationHistory = newMessages.slice(-5).map(msg => 
+            `${msg.sender === "user" ? "User" : "Joshua"}: ${msg.text}`
+        ).join("\n");
+    
+        const fullPrompt = `${knowledgebase}\n\n${conversationHistory}\nJoshua:`;
     
         try {
             const response = await axios.post(url, {
                 contents: [{ parts: [{ text: fullPrompt }] }],
             });
-            const geminiResponse = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || "I don't know the answer.";    
+    
+            const geminiResponse = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || "I don't know the answer.";
             setMessages([...newMessages, { text: geminiResponse, sender: "bot" }]);
         } catch (error) {
             console.error("Error:", error);
             setMessages([...newMessages, { text: "Error: Unable to fetch response", sender: "bot" }]);
         }
-    
-        setInput("");
     };
-
+    
     const sampleQuestions = [
         "What is your name?",
         "Tell me about your skills.",
