@@ -14,7 +14,7 @@ const Hero = () => {
                 <div className="w-full md:w-1/2 h-full flex flex-col items-center md:items-start gap-4 z-20">
                     <p className="font-semibold text-2xl">Welcome!</p>
                     <p className="font-bold text-5xl text-center md:text-left">I'm <span className="text-[#3B82F6]">Joshua Salceda</span></p>
-                    <p className="text-center md:text-left">Welcome to my portfolio! I am a fresh Information Technology graduate from Cavite State University - Bacoor Campus, where I earned Latin honors. With a solid foundation in full-stack development and a passion for continuous learning, I specialize in building web applications using modern tools like Laravel, Django, ASP.NET Core and React.js/Next.js.</p>
+                    <p className="text-center md:text-left">Welcome to my portfolio! I am a fresh Information Technology graduate from Cavite State University - Bacoor Campus, where I earned Latin honors. With a solid foundation in full-stack development and a passion for continuous learning, I specialize in building web applications using modern tools like Laravel, Django, ASP.NET Core and React.js(with Vite)/Next.js.</p>
                     <div className="relative">
                         <button onClick={toggleOpenWorks} className='px-6 py-3 rounded text-lg text-[#F4F4F5] bg-[#3B82F6]'>Explore My Work</button>
                         {openWorks && (
