@@ -12,7 +12,7 @@ const Hero = () => {
                     <p className="text-center md:text-left">I'm a graduate of Bachelor of Science in Information Technology with Latin Honor and with a hands-on experience in software development. I enjoy building useful projects, learning new things, and working with others to solve problems through code.</p>
                     <div className="flex items-center gap-2">
                         <a
-                            href="jsalcedaresume.pdf"
+                            href="SALCEDAJOSHUA.pdf"
                             download
                             className='px-6 py-3 rounded text-base text-[#F4F4F5] hover:text-white bg-[#3B82F6] hover:scale-105 transition-all duration-300 flex items-center'>
                             My Resume <MdOutlineFileDownload size={22} className="ml-2"/>
